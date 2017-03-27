@@ -33,5 +33,4 @@ public class ModelModule {
     Scheduler provideSchedulerIO() {
         return Schedulers.io();
     }
-
 }

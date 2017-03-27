@@ -33,10 +33,6 @@ public class MainActivity extends AppCompatActivity {
         mFragmentManager = getSupportFragmentManager();
         Fragment fragment = mFragmentManager.findFragmentByTag(TAG);
         if (fragment == null) replaceFragment(new AuthFragment(), false);
-
-//        presenter = new AuthPresenterImp(this);
-
-//        buttonSignIn.setOnClickListener(v -> presenter.onSignInClick());
     }
 
     private void replaceFragment(Fragment fragment, boolean addBackStack) {

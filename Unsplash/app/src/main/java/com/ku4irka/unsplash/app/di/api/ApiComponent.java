@@ -17,6 +17,5 @@ import dagger.Component;
 )
 public interface ApiComponent {
 
-//    void inject(ModelImp modelImp);
     OAuthService oauthService();
 }

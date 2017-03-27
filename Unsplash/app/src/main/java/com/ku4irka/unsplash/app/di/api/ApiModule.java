@@ -1,5 +1,6 @@
 package com.ku4irka.unsplash.app.di.api;
 
+import com.ku4irka.unsplash.BuildConfig;
 import com.ku4irka.unsplash.app.Const;
 import com.ku4irka.unsplash.app.di.scope.ApplicationScope;
 import com.ku4irka.unsplash.app.helper.PreferencesHelper;
@@ -25,25 +26,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class ApiModule {
-
-    //private static final boolean ENABLE_LOG = true;
-    //
-    //private static final boolean ENABLE_AUTH = false;
-
-    //private static OkHttpClient.Builder sHttpClient = new OkHttpClient.Builder();
-    //
-    //private static Retrofit.Builder builder = new Retrofit.Builder()
-    //    .baseUrl(OAUTH_URL)
-    //    .addConverterFactory(GsonConverterFactory.create())
-    //    .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
-
-
-    //public static <S> S createService(Class<S> serviceClass) {
-    //    OkHttpClient client = sHttpClient.build();
-    //    Retrofit retrofit = builder.client(client).build();
-    //
-    //    return retrofit.create(serviceClass);
-    //}
 
     @Provides
     @ApplicationScope
@@ -73,7 +55,10 @@ public class ApiModule {
         return new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .addInterceptor(new HttpLoggingInterceptor()
-                        .setLevel(HttpLoggingInterceptor.Level.BODY))
+//                        .setLevel(HttpLoggingInterceptor.Level.BODY))
+                        .setLevel(BuildConfig.DEBUG
+                                ? HttpLoggingInterceptor.Level.BASIC
+                                : HttpLoggingInterceptor.Level.NONE))
                 .build();
     }
 
@@ -104,37 +89,4 @@ public class ApiModule {
     OAuthService provideOAuthService(@Named("oauth") Retrofit retrofit) {
         return retrofit.create(OAuthService.class);
     }
-
-//    public static OAuthService getOauthService(String url, PostTokenDTO postTokenDTO) {
-//
-//        OkHttpClient httpClient = new OkHttpClient();
-//
-//        if (postTokenDTO != null) {
-//            httpClient.interceptors().add(chain -> {
-//                Request original = chain.request();
-//                Request request = original.newBuilder()
-//                    .header("Authorization", "Bearer " + postTokenDTO.getCode())
-//                    .method(original.method(), original.body())
-//                    .build();
-//
-//                return chain.proceed(request);
-//            });
-//        }
-//
-//        if (ENABLE_LOG) {
-//            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-//            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-//            httpClient.interceptors().add(interceptor);
-//        }
-//
-//        Retrofit.Builder builder = new Retrofit.Builder().
-//            baseUrl(url)
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
-//
-//        builder.client(httpClient);
-//
-//        return builder.build().create(OAuthService.class);
-//    }
-
 }

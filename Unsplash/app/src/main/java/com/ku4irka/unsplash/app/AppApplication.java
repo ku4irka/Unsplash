@@ -7,13 +7,9 @@ import com.ku4irka.unsplash.app.di.AppComponent;
 import com.ku4irka.unsplash.app.di.AppModule;
 import com.ku4irka.unsplash.app.di.DaggerAppComponent;
 import com.ku4irka.unsplash.app.di.api.ApiComponent;
-import com.ku4irka.unsplash.app.di.api.ApiModule;
 import com.ku4irka.unsplash.app.di.api.DaggerApiComponent;
-import com.ku4irka.unsplash.app.di.helper.UtilModule;
 import com.ku4irka.unsplash.app.di.mvp.DaggerMVPComponent;
 import com.ku4irka.unsplash.app.di.mvp.MVPComponent;
-import com.ku4irka.unsplash.app.di.mvp.ModelModule;
-import com.ku4irka.unsplash.app.di.mvp.PresenterModule;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -49,11 +45,9 @@ public class AppApplication extends Application {
                 .build();
         mAppComponent.inject(this);
 
-        mMVPComponent = DaggerMVPComponent.builder()
-                .modelModule(new ModelModule())
-                .build();
+        mMVPComponent = DaggerMVPComponent.builder().build();
         mApiComponent = DaggerApiComponent.builder()
-                .apiModule(new ApiModule())
+                .appComponent(mAppComponent)
                 .build();
 
     }

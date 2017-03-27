@@ -26,6 +26,7 @@ public class AuthPresenterImp extends BasePresenter implements AuthPresenter {
 
     public AuthPresenterImp(AuthFragmentView view) {
         mView = view;
+        AppApplication.getInstance().getMVPComponent().inject(this);
     }
 
     @Override

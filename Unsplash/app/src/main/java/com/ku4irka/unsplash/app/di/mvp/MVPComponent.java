@@ -21,8 +21,6 @@ import dagger.Component;
 public interface MVPComponent {
 
     void inject(ModelImp modelImp);
-//    Scheduler scheduler();
 
-//    PostTokenDTO postTokenDTO();
     void inject(AuthPresenterImp authPresenterImp);
 }

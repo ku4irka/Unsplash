@@ -1,5 +1,6 @@
 package com.ku4irka.unsplash.model;
 
+import com.ku4irka.unsplash.app.AppApplication;
 import com.ku4irka.unsplash.model.dto.authorization.AccessTokenDTO;
 import com.ku4irka.unsplash.model.dto.authorization.PostTokenDTO;
 import com.ku4irka.unsplash.model.service.OAuthService;
@@ -20,7 +21,7 @@ import static com.ku4irka.unsplash.app.Const.UI_THREAD;
 
 public class ModelImp implements Model {
 
-    @Inject
+//    @Inject
     OAuthService mOAuthService;
 
     @Inject
@@ -32,8 +33,8 @@ public class ModelImp implements Model {
     Scheduler ioThread;
 
     public ModelImp() {
-//        AppApplication.getInstance().getMVPComponent().inject(this);
-//        AppApplication.getInstance().getApiComponent().inject(this);
+        AppApplication.getInstance().getMVPComponent().inject(this);
+        mOAuthService = AppApplication.getInstance().getApiComponent().oauthService();
     }
 
     @Override
