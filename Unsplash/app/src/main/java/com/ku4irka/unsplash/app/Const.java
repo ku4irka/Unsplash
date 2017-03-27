@@ -1,10 +1,12 @@
 package com.ku4irka.unsplash.app;
 
-public class Const {
+public final class Const {
+
+    private Const() {}
 
     // APP
     public static final String APP_SCHEME = "app";
-    public static final String APP_HOST = "github.ku4irka.unsplash";
+    public static final String APP_HOST = "io.github.ku4irka.unsplash";
 
     // API
     public static final String SCHEME_URL = "https://";
@@ -21,4 +23,8 @@ public class Const {
             "&response_type=code" +
             "&scope=public";
 //            "&scope=public+read_user+read_photos+read_collections+write_likes+write_followers";
+
+    // DI
+    public static final String UI_THREAD = "UI_THREAD";
+    public static final String IO_THREAD = "IO_THREAD";
 }

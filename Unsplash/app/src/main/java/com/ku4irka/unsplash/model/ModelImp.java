@@ -1,16 +1,17 @@
 package com.ku4irka.unsplash.model;
 
-import com.ku4irka.unsplash.app.AppApplication;
-import com.ku4irka.unsplash.model.api.ApiClient;
-import com.ku4irka.unsplash.model.api.ServiceGenerator;
 import com.ku4irka.unsplash.model.dto.authorization.AccessTokenDTO;
 import com.ku4irka.unsplash.model.dto.authorization.PostTokenDTO;
+import com.ku4irka.unsplash.model.service.OAuthService;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.Scheduler;
 
-import static com.ku4irka.unsplash.app.Const.REDIRECT_URI;
+import static com.ku4irka.unsplash.app.Const.IO_THREAD;
+import static com.ku4irka.unsplash.app.Const.UI_THREAD;
 
 
 /**
@@ -19,24 +20,27 @@ import static com.ku4irka.unsplash.app.Const.REDIRECT_URI;
 
 public class ModelImp implements Model {
 
-    private ApiClient mApiClient = ServiceGenerator.createService(ApiClient.class);
+    @Inject
+    OAuthService mOAuthService;
+
+    @Inject
+    @Named(UI_THREAD)
+    Scheduler uiThread;
+
+    @Inject
+    @Named(IO_THREAD)
+    Scheduler ioThread;
+
+    public ModelImp() {
+//        AppApplication.getInstance().getMVPComponent().inject(this);
+//        AppApplication.getInstance().getApiComponent().inject(this);
+    }
 
     @Override
-    public Observable<AccessTokenDTO> getAccessToken(String code) {
-        return mApiClient.getAccessToken(getTokenData(code))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+    public Observable<AccessTokenDTO> getAccessToken(PostTokenDTO tokenDTO) {
+        return mOAuthService
+                .getAccessToken(tokenDTO)
+                .subscribeOn(ioThread)
+                .observeOn(uiThread);
     }
-
-    private PostTokenDTO getTokenData(String code) {
-        PostTokenDTO token = new PostTokenDTO();
-        token.setClientId(AppApplication.getInstance().getClientId());
-        token.setClientSecret(AppApplication.getInstance().getClientSecret());
-        token.setRedirectUri(REDIRECT_URI);
-        token.setCode(code);
-        token.setGrantType("authorization_code");
-
-        return token;
-    }
-
 }

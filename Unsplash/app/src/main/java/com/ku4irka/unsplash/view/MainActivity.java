@@ -19,8 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager mFragmentManager;
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
 
 //    private BasePresenter presenter;
 

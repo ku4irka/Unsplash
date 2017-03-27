@@ -26,6 +26,13 @@ public class PostTokenDTO {
     @Expose
     private String grantType;
 
+    public PostTokenDTO(String clientId, String clientSecret, String redirectUri, String grantType) {
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+        this.redirectUri = redirectUri;
+        this.grantType = grantType;
+    }
+
     public String getClientId() {
         return clientId;
     }

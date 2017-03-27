@@ -1,6 +1,7 @@
 package com.ku4irka.unsplash.model;
 
 import com.ku4irka.unsplash.model.dto.authorization.AccessTokenDTO;
+import com.ku4irka.unsplash.model.dto.authorization.PostTokenDTO;
 
 import io.reactivex.Observable;
 
@@ -10,5 +11,5 @@ import io.reactivex.Observable;
 
 public interface Model {
 
-    Observable<AccessTokenDTO> getAccessToken(String authorizationCode);
+    Observable<AccessTokenDTO> getAccessToken(PostTokenDTO tokenDTO);
 }
