@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".view.MainActivity"
-    tools:showIn="@layout/activity_main"
+    tools:context=".view.fragments.main.MainFragment"
     >
 
     <TextView
@@ -31,5 +30,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:text="@string/sign_in"
         />
-
 </android.support.constraint.ConstraintLayout>

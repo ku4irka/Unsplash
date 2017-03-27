@@ -9,4 +9,6 @@ import com.ku4irka.unsplash.view.fragments.BaseView;
 public interface AuthFragmentView extends BaseView {
 
     void setWebView(String link);
+
+    void goToMainFragment();
 }

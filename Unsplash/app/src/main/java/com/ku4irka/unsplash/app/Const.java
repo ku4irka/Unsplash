@@ -8,6 +8,8 @@ public final class Const {
     public static final String APP_SCHEME = "app";
     public static final String APP_HOST = "io.github.ku4irka.unsplash";
 
+    public static final String TAG = "TAG";
+
     // API
     public static final String SCHEME_URL = "https://";
     public static final String HOST_URL = "unsplash.com";

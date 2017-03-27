@@ -60,6 +60,10 @@ public class AppApplication extends Application {
         return mClientSecret;
     }
 
+    public AppComponent getAppComponent() {
+        return mAppComponent;
+    }
+
     public MVPComponent getMVPComponent() {
         return mMVPComponent;
     }

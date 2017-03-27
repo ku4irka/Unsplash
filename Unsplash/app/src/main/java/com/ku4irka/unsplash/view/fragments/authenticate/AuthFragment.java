@@ -15,10 +15,13 @@ import com.ku4irka.unsplash.app.Const;
 import com.ku4irka.unsplash.presenter.BasePresenter;
 import com.ku4irka.unsplash.presenter.authenticate.AuthPresenterImp;
 import com.ku4irka.unsplash.view.fragments.BaseFragment;
+import com.ku4irka.unsplash.view.fragments.main.MainFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static com.ku4irka.unsplash.util.FragmentUtils.addFragment;
 
 /**
  * Created by Pavlo Kuchirka on 14-Mar-17.
@@ -70,6 +73,11 @@ public class AuthFragment extends BaseFragment implements AuthFragmentView {
         });
 
         mWebView.loadUrl(link);
+    }
+
+    @Override
+    public void goToMainFragment() {
+        addFragment(getFragmentManager(), new MainFragment(), Const.TAG, true);
     }
 
     @Override

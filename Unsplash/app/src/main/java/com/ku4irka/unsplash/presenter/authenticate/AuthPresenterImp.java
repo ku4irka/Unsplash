@@ -1,6 +1,7 @@
 package com.ku4irka.unsplash.presenter.authenticate;
 
 import com.ku4irka.unsplash.app.AppApplication;
+import com.ku4irka.unsplash.app.helper.PreferencesHelper;
 import com.ku4irka.unsplash.model.dto.authorization.AccessTokenDTO;
 import com.ku4irka.unsplash.model.dto.authorization.PostTokenDTO;
 import com.ku4irka.unsplash.presenter.BasePresenter;
@@ -22,11 +23,14 @@ public class AuthPresenterImp extends BasePresenter implements AuthPresenter {
     @Inject
     PostTokenDTO mPostTokenDTO;
 
+    PreferencesHelper mPrefHelper;
+
     private AuthFragmentView mView;
 
     public AuthPresenterImp(AuthFragmentView view) {
         mView = view;
         AppApplication.getInstance().getMVPComponent().inject(this);
+        mPrefHelper = AppApplication.getInstance().getAppComponent().preferencesHelper();
     }
 
     @Override
@@ -49,6 +53,9 @@ public class AuthPresenterImp extends BasePresenter implements AuthPresenter {
               public void onNext(AccessTokenDTO accessToken) {
                   if (accessToken != null) {
                       String token = accessToken.getAccessToken();
+                      mPrefHelper.saveToken(token);
+
+                      mView.goToMainFragment();
                   }
               }
 
