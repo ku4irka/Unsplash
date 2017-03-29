@@ -15,6 +15,7 @@ import com.ku4irka.unsplash.view.fragments.BaseFragment;
  */
 
 public class MainFragment extends BaseFragment {
+
     @Override
     protected BasePresenter getPresenter() {
         return null;

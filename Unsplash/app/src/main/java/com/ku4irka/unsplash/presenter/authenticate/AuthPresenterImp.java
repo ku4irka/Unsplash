@@ -1,6 +1,11 @@
 package com.ku4irka.unsplash.presenter.authenticate;
 
+import android.net.Uri;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
 import com.ku4irka.unsplash.app.AppApplication;
+import com.ku4irka.unsplash.app.Const;
 import com.ku4irka.unsplash.app.helper.PreferencesHelper;
 import com.ku4irka.unsplash.model.dto.authorization.AccessTokenDTO;
 import com.ku4irka.unsplash.model.dto.authorization.PostTokenDTO;
@@ -34,8 +39,29 @@ public class AuthPresenterImp extends BasePresenter implements AuthPresenter {
     }
 
     @Override
-    public void getLoginUrl() {
-      mView.setWebView(String.format(LOGIN_URL, AppApplication.getInstance().getClientId()));
+    public WebViewClient getWebViewClient() {
+        return new WebViewClient() {
+            // if you use api >= 21, you can use shouldOverrideUrlLoading(WebView view, WebResourceRequest request)
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                Uri uri = Uri.parse(url);
+
+                if (uri.getHost().equals(Const.HOST_URL)
+                        && uri.getPath().contains("oauth/authorize")
+                        && uri.getQueryParameter("client_id") == null) {
+                    String code = uri.getLastPathSegment();
+                    getAccessToken(code);
+
+                    return true; //Indicates WebView to NOT load the url;
+                }
+                return false; //Allow WebView to load url
+            }
+        };
+    }
+
+    @Override
+    public String getLoginUrl() {
+      return String.format(LOGIN_URL, AppApplication.getInstance().getClientId());
     }
 
     @Override

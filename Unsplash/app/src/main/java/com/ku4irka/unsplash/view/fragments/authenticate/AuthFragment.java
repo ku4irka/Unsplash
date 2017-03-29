@@ -47,31 +47,17 @@ public class AuthFragment extends BaseFragment implements AuthFragmentView {
         View view = inflater.inflate(R.layout.fragment_auth_webview, container, false);
         mUnbinder = ButterKnife.bind(this, view);
 
-        mPresenter.getLoginUrl();
+        initWebView();
+
         return view;
     }
 
     @Override
-    public void setWebView(String link) {
-        mWebView.setWebViewClient(new WebViewClient() {
+    public void initWebView() {
+        WebViewClient client = mPresenter.getWebViewClient();
+        mWebView.setWebViewClient(client);
 
-            // if you use api >= 21, you can use shouldOverrideUrlLoading(WebView view, WebResourceRequest request)
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                Uri uri = Uri.parse(url);
-
-                if (uri.getHost().equals(Const.HOST_URL)
-                        && uri.getPath().contains("oauth/authorize")
-                        && uri.getQueryParameter("client_id") == null) {
-                    String code = uri.getLastPathSegment();
-                    mPresenter.getAccessToken(code);
-
-                    return true; //Indicates WebView to NOT load the url;
-                }
-                return false; //Allow WebView to load url
-            }
-        });
-
+        String link = mPresenter.getLoginUrl();
         mWebView.loadUrl(link);
     }
 
