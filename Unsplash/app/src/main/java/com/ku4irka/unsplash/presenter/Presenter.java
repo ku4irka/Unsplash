@@ -6,7 +6,7 @@ package com.ku4irka.unsplash.presenter;
 
 public interface Presenter {
 
-    void getAccessToken();
+    String getAccessToken();
 
     void onStop();
 }

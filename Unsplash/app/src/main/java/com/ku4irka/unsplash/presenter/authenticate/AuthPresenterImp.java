@@ -28,14 +28,11 @@ public class AuthPresenterImp extends BasePresenter implements AuthPresenter {
     @Inject
     PostTokenDTO mPostTokenDTO;
 
-    PreferencesHelper mPrefHelper;
-
     private AuthFragmentView mView;
 
     public AuthPresenterImp(AuthFragmentView view) {
         mView = view;
         AppApplication.getInstance().getMVPComponent().inject(this);
-        mPrefHelper = AppApplication.getInstance().getAppComponent().preferencesHelper();
     }
 
     @Override
@@ -62,11 +59,6 @@ public class AuthPresenterImp extends BasePresenter implements AuthPresenter {
     @Override
     public String getLoginUrl() {
       return String.format(LOGIN_URL, AppApplication.getInstance().getClientId());
-    }
-
-    @Override
-    public void getAccessToken() {
-
     }
 
     @Override
